@@ -40,4 +40,11 @@ public class CommentController {
         List<CommentResponse> responses = commentService.findAllByTopic(topicId);
         return ResponseEntity.ok(responses);
     }
+
+    @DeleteMapping("/{commentId}")
+    @Operation(summary = "댓글 삭제")
+    public ResponseEntity<?> deleteComment(@PathVariable Long topicId, @PathVariable Long commentId) {
+        commentService.deleteById(commentId);
+        return ResponseEntity.ok().build();
+    }
 }

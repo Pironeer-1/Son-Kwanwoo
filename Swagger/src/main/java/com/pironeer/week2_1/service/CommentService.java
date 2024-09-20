@@ -59,16 +59,28 @@ public class CommentService {
             throw new RuntimeException("COMMENT NOT FOUND");
         }
 
-        // 댓글 내용 수정
         existingComment.setContent(request.content());
         existingComment.setUpdatedAt(java.time.LocalDateTime.now());
         return CommentMapper.toResponse(existingComment);
     }
 
     public void deleteById(Long id) {
-        if (!commentMap.containsKey(id)) {
+        Comment comment = commentMap.get(id);
+        if (comment == null) {
             throw new RuntimeException("COMMENT NOT FOUND");
         }
+
+        if (!comment.getChildComments().isEmpty()) {
+            comment.getChildComments().clear();
+        }
+
+        if (comment.getParentCommentId() != null) {
+            Comment parentComment = commentMap.get(comment.getParentCommentId());
+            if (parentComment != null) {
+                parentComment.getChildComments().removeIf(c -> c.getId().equals(id));
+            }
+        }
+
         commentMap.remove(id);
     }
 }
