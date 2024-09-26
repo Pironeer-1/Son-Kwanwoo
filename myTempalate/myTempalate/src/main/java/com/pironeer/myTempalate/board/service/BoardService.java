@@ -6,6 +6,8 @@ import com.pironeer.myTempalate.board.dto.response.BoardResponse;
 import com.pironeer.myTempalate.board.entity.Board;
 import com.pironeer.myTempalate.board.mapper.BoardMapper;
 import com.pironeer.myTempalate.board.repository.BoardRepository;
+import com.pironeer.myTempalate.global.exception.CustomException;
+import com.pironeer.myTempalate.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class BoardService {
 
     public BoardResponse findById(Long id) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("BOARD NOT FOUND"));
+                .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));  // 커스텀 예외 적용
         return BoardResponse.of(board);
     }
 
@@ -34,7 +36,7 @@ public class BoardService {
 
     public BoardResponse update(BoardUpdateRequest request) {
         Board board = boardRepository.findById(request.id())
-                .orElseThrow(() -> new RuntimeException("BOARD NOT FOUND"));
+                .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));  // 커스텀 예외 적용
         boardRepository.save(board.update(request));
         return BoardResponse.of(board);
     }

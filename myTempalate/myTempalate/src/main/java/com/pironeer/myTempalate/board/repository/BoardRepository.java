@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class BoardRepository {
+
     private final AtomicLong boardIdxGenerator = new AtomicLong();
     private final Map<Long, Board> boardMap = new HashMap<>();
 

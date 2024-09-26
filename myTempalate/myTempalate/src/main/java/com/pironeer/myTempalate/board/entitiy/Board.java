@@ -3,6 +3,7 @@ package com.pironeer.myTempalate.board.entity;
 import com.pironeer.myTempalate.board.dto.request.BoardUpdateRequest;
 import lombok.Builder;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data
