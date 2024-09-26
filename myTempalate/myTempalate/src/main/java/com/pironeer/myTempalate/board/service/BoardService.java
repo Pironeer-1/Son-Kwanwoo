@@ -5,7 +5,7 @@ import com.pironeer.myTempalate.board.dto.request.BoardUpdateRequest;
 import com.pironeer.myTempalate.board.dto.response.BoardResponse;
 import com.pironeer.myTempalate.board.entity.Board;
 import com.pironeer.myTempalate.board.mapper.BoardMapper;
-import com.pironeer.myTempalate.board.repository.BoardRepository;
+import com.pironeer.myTempalate.board.repository.BoardMemoryRepository;
 import com.pironeer.myTempalate.global.exception.CustomException;
 import com.pironeer.myTempalate.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-    private final BoardRepository boardRepository;
+    private final BoardMemoryRepository boardRepository;
 
     public Long save(BoardCreateRequest request) {
         Board savedBoard = boardRepository.save(BoardMapper.from(request));
